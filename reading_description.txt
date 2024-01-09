@@ -1,0 +1,42 @@
+Main 3 files
+1. Config.in
+2. external.mk
+3. external.desc
+================ Config.in ================================================
+This file should contain all required information from the package.
+for example:
+------
+source "$BR2_EXTERNAL_test_PATH/package/package1/Config.in"
+source "$BR2_EXTERNAL_test_PATH/package/package2/Config.in"
+------
+where test= your tree name/folder name
+================= external.mk ================================================
+This file contains all make file to build packages
+------
+include $(sort $(wildcard $(BR2_EXTERNAL_BAR_42_PATH)/package/*/*.mk))
+------
+=================== external.desc ============================================
+name: buildroot tree name / folder name mainly
+desc: description of the tree
+===================================Additional Packages=========================
+4 . Packages
+This folder contains all necessory external packages, their config and make files.
+Config and make files are need to be included in the Config.in and external.mk file
+
+MOre information will be added later as adding packages
+
+================================================================================
+5 configs
+contains test_defconfig file. It will automatically show up in the make list-defconfig.
+================================================================================
+6.provides
+It is possible for a br2-external to extend those choices, by providing
+a set of files that define those alternatives:
+
+* +provides/toolchains.in+ defines the pre-configured toolchains, which
+  will then be listed in the toolchain selection;
+* +provides/jpeg.in+ defines the alternative libjpeg implementations;
+* +provides/openssl.in+ defines the alternative openssl implementations;
+* +provides/skeleton.in+ defines the alternative skeleton implementations;
+* +provides/init.in+ defines the alternative init system implementations, this
+  can be used to select a default skeleton for your init.
